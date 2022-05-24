@@ -16,6 +16,7 @@ const serviceControllers = {
                 const verifyPassword = bcrypt.compareSync(req.body.password, findEmail.password) 
                 if(verifyPassword) {
                     const generateJWT = await jwt.sign({
+                        id : findEmail._id,
                         name : findEmail.name,
                         email : findEmail.email
                     }, process.env.SECRET_KEY)
@@ -65,6 +66,7 @@ const serviceControllers = {
             const findEmail = await userModels.findOne({ email: req.body.email })
             if(findEmail !== null) {
                 const signJwt = await jwt.sign({
+                    id : findEmail._id,
                     name  : findEmail.name,
                     email : findEmail.email
                 }, process.env.SECRET_KEY)
@@ -165,7 +167,7 @@ const serviceControllers = {
                     longUrl     : req.body.longUrl,
                     shortUrl    : process.env.URL_REDIRECT+"/"+unique,
                     uniqueCode  : unique,
-                    createdBy   : "orang",
+                    createdBy   : req.user.id,
                     createdAt   : await config.timeNow()
                 })
                 config.response(res, 201, "success", generate)
@@ -181,7 +183,7 @@ const serviceControllers = {
 
     getGenerateLink : async (req, res, next) => {
         try {
-            const findByCreatedBy = await generateUrlModels.find()
+            const findByCreatedBy = await generateUrlModels.find({ createdBy: req.user.id })
             if(findByCreatedBy === null) {
                 findByCreatedBy = []
             }
