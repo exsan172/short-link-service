@@ -73,7 +73,7 @@ const serviceControllers = {
 
                 const msgForgotPass = 
                     `<span>
-                        Klik link berikut ini untuk melalukan perubahan password : <a href="${process.env.URL_REDIRECT}/forgot-pass/${signJwt}">Ganti Password</a>
+                        Klik link berikut ini untuk melalukan perubahan password : <a href="${process.env.URL_REDIRECT}/confirm-password/${signJwt}">Ganti Password</a>
                     </span>`
 
                 config.mail(findEmail.email, "Verifikasi lupa password", msgForgotPass).then(() =>{
@@ -200,7 +200,7 @@ const serviceControllers = {
             const findData = await generateUrlModels.findOne({ _id:req.params.id })
             if(findData !== null) {
                 await generateUrlModels.deleteOne({ _id:req.params.id })
-                config.response(res, 201, "success", findData)
+                config.response(res, 200, "success", findData)
             
             } else {
                 config.response(res, 400, `failed, data with id ${req.params.id} is not found`)
@@ -215,13 +215,13 @@ const serviceControllers = {
         try {
             const findData = await generateUrlModels.findOne({ _id:req.body.id })
             if(findData !== null) {
-                await generateUrlModels.updateOne({ id:req.body.id }, {
+                await generateUrlModels.updateOne({ _id:req.body.id }, {
                     name        : req.body.name,
                     longUrl     : req.body.longUrl,
                 })
                 
                 const getData = await generateUrlModels.findOne({ _id:req.body.id })
-                config.response(res, 201, "success", getData)
+                config.response(res, 200, "success", getData)
 
             } else {
                 config.response(res, 400, `failed, data with id ${req.body.id} is not found`)
