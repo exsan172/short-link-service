@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const cors = require("cors")
 const config = require("./config")
 
 const serviceRouter = require('./routes/service');
@@ -11,6 +12,10 @@ const redirectRouter = require('./routes/redirect');
 const app = express();
 
 config.dbConnection()
+const corsOptions = {
+	origin: '*',
+}
+app.use(cors(corsOptions))
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
