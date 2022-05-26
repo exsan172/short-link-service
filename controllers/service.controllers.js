@@ -183,7 +183,7 @@ const serviceControllers = {
 
     getGenerateLink : async (req, res, next) => {
         try {
-            const findByCreatedBy = await generateUrlModels.find({ createdBy: req.user.id })
+            const findByCreatedBy = await generateUrlModels.find({ createdBy: req.user.id }).sort({ createdAt:-1 })
             if(findByCreatedBy === null) {
                 findByCreatedBy = []
             }
