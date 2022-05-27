@@ -230,7 +230,7 @@ const serviceControllers = {
         } catch (error) {
             config.response(res, 400, error.message)
         }
-    },
+    }
 }
 
 module.exports = serviceControllers
