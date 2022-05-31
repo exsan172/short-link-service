@@ -5,7 +5,7 @@ RUN npm install
 COPY . ./
 
 ENV PORT=3000
-ENV DB_HOST=mongodb://49.128.186.88:25731
+ENV DB_HOST=mongodb://49.128.186.88:25731/
 ENV SECRET_KEY=F@ky0u
 ENV HOST_SMTP=smtp.mail.yahoo.com
 ENV PORT_SMTP=465
