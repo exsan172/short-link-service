@@ -27,7 +27,7 @@ app.use('/redirect', redirectRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-	config.response(res, 400, "path not found!")
+	config.response(res, 400, "path not found, please check your path url!")
 });
 
 // error handler
